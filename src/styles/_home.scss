@@ -1,0 +1,56 @@
+.home {
+    background-color: $coral;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    
+    h1 {
+        font-family: 'Chromate';
+        font-size: 144px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .background {
+
+        span {
+            background-color: $red;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: -5vh;
+            transform: translateX(-50%);
+            opacity: 0.15;
+            z-index: 0;
+            
+            &:nth-child(1) {
+                height: 50vh;
+                width: 50vh;
+            }
+            
+            &:nth-child(2) {
+                transform: translateX(-50%) translateY(-25vh);
+                height: 100vh;
+                width: 100vh;
+            }
+            
+            &:nth-child(3) {
+                transform: translateX(-50%) translateY(-50vh);
+                height: 150vh;
+                width: 150vh;
+            }
+            
+            &:nth-child(4) {
+                transform: translateX(-50%) translateY(-75vh);
+                height: 200vh;
+                width: 200vh;
+            }
+        }
+
+
+    }
+}

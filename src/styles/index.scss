@@ -1,0 +1,30 @@
+@import 'assets';
+@import 'home';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: white;
+}
+
+h1 {
+    font-family: 'Chromate';
+    font-size: 144px;
+}
+
+h2 {
+    font-family: 'QuicksandRegular';
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+p {
+    font-family: 'QuicksandRegular';
+    font-size: 16px;
+    text-transform: uppercase;
+}
+

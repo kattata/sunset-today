@@ -1,5 +1,7 @@
 @import 'assets';
+@import 'background';
 @import 'home';
+@import 'city';
 
 * {
     margin: 0;
@@ -17,13 +19,14 @@ h1 {
 }
 
 h2 {
-    font-family: 'QuicksandRegular';
+    font-family: 'Questrial';
     font-size: 18px;
+    font-weight: 400;
     text-transform: uppercase;
 }
 
 p {
-    font-family: 'QuicksandRegular';
+    font-family: 'Questrial';
     font-size: 16px;
     text-transform: uppercase;
 }

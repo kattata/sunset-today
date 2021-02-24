@@ -1,56 +1,56 @@
 .home {
-    background-color: $coral;
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
-    position: relative;
+    text-align: center;  
     
-    h1 {
-        font-family: 'Chromate';
-        font-size: 144px;
-        position: relative;
-        z-index: 2;
-    }
-
-    .background {
-
-        span {
-            background-color: $red;
-            height: 200px;
-            width: 200px;
-            border-radius: 50%;
-            display: block;
-            position: absolute;
-            left: 50%;
-            top: -5vh;
-            transform: translateX(-50%);
-            opacity: 0.15;
-            z-index: 0;
-            
-            &:nth-child(1) {
-                height: 50vh;
-                width: 50vh;
-            }
-            
-            &:nth-child(2) {
-                transform: translateX(-50%) translateY(-25vh);
-                height: 100vh;
-                width: 100vh;
-            }
-            
-            &:nth-child(3) {
-                transform: translateX(-50%) translateY(-50vh);
-                height: 150vh;
-                width: 150vh;
-            }
-            
-            &:nth-child(4) {
-                transform: translateX(-50%) translateY(-75vh);
-                height: 200vh;
-                width: 200vh;
-            }
+    
+    .search {
+        margin: 50px auto 20px;
+        width: max-content;
+        
+        * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h2 {
+            width: 600px;
+            margin: auto;
         }
 
+        input[type="text"] {
+            margin-top: 40px;
+            width: 300px;
+            background: none;
+            border: none;
+            border-bottom: 1px solid white;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-family: 'Questrial';
+            text-transform: uppercase;
+            color: white;
 
+            &:focus {
+                outline: 1px solid white;
+                &::placeholder {
+                    color: transparent;
+                }
+            }
+
+            &:focus-visible {
+                outline: none;
+            }
+
+            &:active {
+                outline: none;
+            }
+            
+            &::placeholder {
+                color: white;
+            }
+
+        }
     }
 }

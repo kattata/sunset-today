@@ -1,6 +1,6 @@
 // react
 import { BrowserRouter, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // components
 import Home from './components/Home';
@@ -12,7 +12,11 @@ import axios from "axios";
 
 function App() {
 
-  const [coordinates, setCoordinates] = useState({});
+  const [coordinates, setCoordinates] = useState({
+    lat: "",
+    long: "",
+    name: ""
+  });
 
   const convertCity = (city) => {
     const accessKey = "c0eb1888cedfba2900c84577ae6a206a";
@@ -28,19 +32,18 @@ function App() {
         })
       })
 
-    // get sunset data
     getSunsetData();
+
   }
 
-  const getSunsetData = () => {
+  const getSunsetData = async () => {
 
-    axios.get(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.long}`)
-      .then(response => {
-        console.log(response.results);
-      })
-      .catch(error => {
-        console.log(error.message);
-      })
+    try {
+      const response = await axios.get(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.long}`)
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
 
   }
 

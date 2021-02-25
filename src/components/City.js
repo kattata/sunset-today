@@ -10,8 +10,6 @@ const City = () => {
     const history = useHistory();
     const { name } = useParams();
 
-
-
     const handleClick = () => {
         history.push("/");
     }

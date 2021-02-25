@@ -1,12 +1,11 @@
 import { useHistory } from "react-router-dom";
 import { useState } from 'react';
-// import { convertCity } from "./helpers";
-import Geocode from "react-geocode";
 
 const Home = ({ convertCity }) => {
     const history = useHistory();
 
     const [city, setCity] = useState("");
+
 
     const handleChange = (e) => {
         setCity(e.target.value);

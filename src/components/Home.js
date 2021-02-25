@@ -1,8 +1,9 @@
 import { useHistory } from "react-router-dom";
 import { useState } from 'react';
+// import { convertCity } from "./helpers";
+import Geocode from "react-geocode";
 
-
-const Home = () => {
+const Home = ({ convertCity }) => {
     const history = useHistory();
 
     const [city, setCity] = useState("");
@@ -13,6 +14,7 @@ const Home = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        convertCity(city);
 
         // take city from state and go to city page
         history.push(`/city/${city}`);

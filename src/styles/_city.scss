@@ -61,9 +61,14 @@
         transform: translate(-50%,-50%);
         text-align: center;
 
-        // span {
-        //     font-size: 24px;
-        //     padding-left: 2px;
-        // }
+        @keyframes missed-it {
+            to {
+                transform: scale(1.02);
+            }
+        }
+
+        .missed-it {
+            animation: missed-it 0.7s ease infinite alternate;
+        }
     }
 }

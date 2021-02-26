@@ -1,26 +1,56 @@
 import { useHistory, useParams } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import axios from "axios";
 
 
 import sunset from "../assets/sunset.jpg";
 
-const City = ({ sunsetData }) => {
+const City = ({ coordinates }) => {
 
     const history = useHistory();
     const { name } = useParams();
 
     const [countdown, setCountdown] = useState(null);
+    const [missedIt, setMissedIt] = useState(false);
+    const [sunsetData, setSunsetData] = useState(null);
+
 
     const handleClick = () => {
         history.push("/");
     }
 
+    // GET SUNSET DATA
+    const initialMount = useRef(true);
+
+    const getSunsetData = useCallback(
+        async () => {
+
+            try {
+                const response = await axios.get(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.long}&formatted=0`)
+                setSunsetData(response.data.results.sunset);
+                // console.log(sunsetData);
+            } catch (error) {
+                console.log(error);
+            }
+
+        }, [coordinates.lat, coordinates.long]
+    );
+
+    useEffect(() => {
+        if (initialMount.current) {
+            initialMount.current = false;
+        } else {
+            getSunsetData()
+        }
+    }, [getSunsetData]);
+
+    // COUNTDOWN
     useEffect(() => {
 
-        // sunset time
         let sunset = new Date(sunsetData).getTime();
+        // sunset time
 
-        setInterval(() => {
+        let countdownInterval = setInterval(() => {
 
             // current time
             let now = new Date().getTime();
@@ -35,10 +65,15 @@ const City = ({ sunsetData }) => {
             // countdown
             let time = `${hours}:${minutes}:${seconds}`;
             setCountdown(time);
-            console.log(time);
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                setCountdown("00:00:00");
+                setMissedIt(true);
+            }
         }, 1000)
 
-    }, [countdown])
+    }, [sunsetData])
 
     return (
         <div className="city">
@@ -50,9 +85,9 @@ const City = ({ sunsetData }) => {
                     <p>Sunset at </p>
                 </div>
                 <div className="center">
+                    {/* <h2>{missedIt ? <p>You missed it :( Come back tomorrow</p> : null}</h2> */}
+                    {/* <h1 className={`${missedIt ? 'missed-it' : ''}`}>{countdown}</h1> */}
                     <h1>{countdown}</h1>
-                    {/* <h1>{countdown}</h1> */}
-                    {/* <h1>{sunsetData}</h1> */}
                     <h2>Until sunset in <span> {name} </span></h2>
 
                 </div>

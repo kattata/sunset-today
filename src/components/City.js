@@ -25,7 +25,7 @@ const City = () => {
                 </div>
                 <div className="center">
                     <h1>2:43:12</h1>
-                    <h2>Until sunset in {name}</h2>
+                    <h2>Until sunset in <span> {name} </span></h2>
 
                 </div>
             </main>

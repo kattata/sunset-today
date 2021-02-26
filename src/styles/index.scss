@@ -31,3 +31,15 @@ p {
     text-transform: uppercase;
 }
 
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 70px;
+        line-height: 1;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+}
+

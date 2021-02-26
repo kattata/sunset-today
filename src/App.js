@@ -24,7 +24,7 @@ function App() {
 
     axios.get(url)
       .then(res => {
-        // console.log(res);
+        console.log(res);
         setCoordinates({
           lat: res.data.data[0].latitude,
           long: res.data.data[0].longitude,
@@ -41,8 +41,8 @@ function App() {
       <Route exact path="/">
         <Home convertCity={convertCity} />
       </Route>
-      <Route path="/city/:name">
-        <City coordinates={coordinates} />
+      <Route path="/city/:city">
+        <City coordinates={coordinates} convertCity={convertCity} />
       </Route>
 
     </BrowserRouter>

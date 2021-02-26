@@ -5,10 +5,10 @@ import axios from "axios";
 
 import sunset from "../assets/sunset.jpg";
 
-const City = ({ coordinates }) => {
+const City = ({ coordinates, convertCity }) => {
 
     const history = useHistory();
-    const { name } = useParams();
+    const { city } = useParams();
 
     const [countdown, setCountdown] = useState(null);
     const [missedIt, setMissedIt] = useState(false);
@@ -18,6 +18,10 @@ const City = ({ coordinates }) => {
     const handleClick = () => {
         history.push("/");
     }
+
+    useEffect(() => {
+        convertCity(city);
+    }, [city])
 
     // GET SUNSET DATA
     const initialMount = useRef(true);
@@ -48,16 +52,14 @@ const City = ({ coordinates }) => {
     useEffect(() => {
 
         let sunset = new Date(sunsetData).getTime();
-        // sunset time
 
         let countdownInterval = setInterval(() => {
 
-            // current time
             let now = new Date().getTime();
 
             let distance = (sunset - now);
 
-            // // time calculations
+            // time calculations
             let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -88,7 +90,7 @@ const City = ({ coordinates }) => {
                     {/* <h2>{missedIt ? <p>You missed it :( Come back tomorrow</p> : null}</h2> */}
                     {/* <h1 className={`${missedIt ? 'missed-it' : ''}`}>{countdown}</h1> */}
                     <h1>{countdown}</h1>
-                    <h2>Until sunset in <span> {name} </span></h2>
+                    <h2>Until sunset in <span> {city} </span></h2>
 
                 </div>
             </main>

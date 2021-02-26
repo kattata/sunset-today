@@ -29,7 +29,7 @@ const Home = ({ convertCity }) => {
                 <span></span>
                 <div className="search">
                     <h1>Sunset Today</h1>
-                    <h2>We all love sunsets, so grab a friend, a camera and don't miss the moment! Find out how much time is left until sunset today at your location</h2>
+                    <h2>We all love sunsets, so grab a friend, a camera and don't miss the moment! Find out how much time is left until the sunset today at your location</h2>
                     <form onSubmit={handleSubmit}>
                         <input type="text" placeholder="Type in city and press enter" value={city} onChange={handleChange} />
                     </form>

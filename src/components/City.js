@@ -13,7 +13,7 @@ const City = ({ coordinates, convertCity }) => {
     const [countdown, setCountdown] = useState(null);
     const [missedIt, setMissedIt] = useState(false);
     const [sunsetData, setSunsetData] = useState(null);
-
+    const [sunsetImage, setSunsetImage] = useState(sunset);
 
     const handleClick = () => {
         history.push("/");
@@ -77,9 +77,21 @@ const City = ({ coordinates, convertCity }) => {
 
     }, [sunsetData])
 
+    // BACKGROUND IMAGE
+    useEffect(() => {
+        const accessKey = 'IVoOzXojUU_edYCTpfIKbSccTms-_l51psRtzE3UxAU';
+        const url = `https://api.unsplash.com/photos/random?client_id=${accessKey}&query=sunset%20${city}`;
+        axios.get(url)
+            .then(response => {
+                const image = response.data.urls.regular;
+                console.log(image);
+                setSunsetImage(image);
+            })
+    }, [])
+
     return (
         <div className="city">
-            <img src={sunset} className="sunset-background" alt="" />
+            <img src={sunsetImage} className="sunset-background" alt="" />
             <div className="overlay"></div>
             <main>
                 <div className="top">

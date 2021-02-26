@@ -24,7 +24,7 @@ function App() {
 
     axios.get(url)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         setCoordinates({
           lat: res.data.data[0].latitude,
           long: res.data.data[0].longitude,

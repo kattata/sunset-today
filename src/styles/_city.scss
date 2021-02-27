@@ -1,12 +1,17 @@
 .city {
     overflow: hidden;
-
+    
+    .background {
+        background-color: $coral;
+        width: 100vw;
+        height: 100vh;
+    }
+    
     .sunset-background {
         width: 100vw;
         height: 100vh;
         position: absolute;
         z-index: -1;
-        // filter: saturate(0);
         opacity: 0.8;
         object-fit: cover;
     }
@@ -46,11 +51,18 @@
                     color: transparent;
                 }
             }
+
             &:focus-visible {
                 outline: none;
             }
+
             &:active {
                 outline: none;
+            }
+
+            img {
+                height: 10px;
+                margin-right: 5px;
             }
         }
     }

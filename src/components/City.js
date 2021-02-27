@@ -4,6 +4,7 @@ import axios from "axios";
 
 
 import sunset from "../assets/sunset.jpg";
+import arrow from "../assets/left-arrow.svg";
 
 const City = ({ coordinates, convertCity }) => {
 
@@ -13,7 +14,8 @@ const City = ({ coordinates, convertCity }) => {
     const [countdown, setCountdown] = useState(null);
     const [missedIt, setMissedIt] = useState(false);
     const [sunsetData, setSunsetData] = useState(null);
-    const [sunsetImage, setSunsetImage] = useState(sunset);
+    const [sunsetImage, setSunsetImage] = useState(null);
+    const [loaded, setLoaded] = useState(false);
 
     const handleClick = () => {
         history.push("/");
@@ -86,16 +88,20 @@ const City = ({ coordinates, convertCity }) => {
                 const image = response.data.urls.regular;
                 console.log(image);
                 setSunsetImage(image);
+                setLoaded(true);
             })
     }, [])
 
     return (
-        <div className="city">
-            <img src={sunsetImage} className="sunset-background" alt="" />
+        <div className={!loaded ? 'background city' : 'city'}>
+            {loaded && <img src={sunsetImage} className="sunset-background" alt="Sunset from Unsplash" />}
             <div className="overlay"></div>
             <main>
                 <div className="top">
-                    <button onClick={handleClick}>Back</button>
+                    <button onClick={handleClick}>
+                        <img src={arrow} alt="Arrow" />
+                        Back
+                    </button>
                     <p>Sunset at </p>
                 </div>
                 <div className="center">

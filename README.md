@@ -1,4 +1,19 @@
-# Getting Started with Create React App
+# Sunset Today
+
+- Personal side project
+- Goal: Improve my skills with React. Develop an app that tells the user how much time is left until the sunset at the location they entered. Generate random sunset image for the background.
+- Stack: React, SCSS
+- APIs: Sunset-Sunrise, PositionStack, Unsplash 
+
+## To do:
+- [ ] Validate if city exists and display error if it doesn't
+- [ ] Fix countdown's formatting
+- [ ] Add loader
+- [ ] Add page transitions and animations
+- [ ] Add time until sunrise and next sunset
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

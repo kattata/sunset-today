@@ -11,7 +11,12 @@ const City = ({ coordinates, convertCity }) => {
     const history = useHistory();
     const { city } = useParams();
 
-    const [countdown, setCountdown] = useState(null);
+    // const [countdown, setCountdown] = useState("00:00:00");
+    const [countdown, setCountdown] = useState({
+        hours: '0',
+        minutes: '0',
+        seconds: '0'
+    });
     const [missedIt, setMissedIt] = useState(false);
     const [sunsetData, setSunsetData] = useState(null);
     const [sunsetImage, setSunsetImage] = useState(null);
@@ -65,19 +70,34 @@ const City = ({ coordinates, convertCity }) => {
             let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             // countdown
-            let time = `${hours}:${minutes}:${seconds}`;
-            setCountdown(time);
+            // const h = hours < 10 ? ('0' + hours) : hours;
+            // let time = `${h}:${minutes}:${seconds}`;
+            setCountdown({
+                hours,
+                minutes,
+                seconds
+            });
 
             if (distance < 0) {
                 clearInterval(countdownInterval);
-                setCountdown("00:00:00");
+                setCountdown({
+                    hours: '0',
+                    minutes: '0',
+                    seconds: '0'
+                });
                 setMissedIt(true);
             }
         }, 1000)
 
     }, [sunsetData])
+
+    const doubleDigits = () => {
+        const h = countdown.hours < 10 ? ('0' + countdown.hours) : countdown.hours;
+        const m = countdown.minutes < 10 ? ('0' + countdown.minutes) : countdown.minutes;
+        const s = countdown.seconds < 10 ? ('0' + countdown.seconds) : countdown.seconds;
+        return `${h}:${m}:${s}`;
+    }
 
     // BACKGROUND IMAGE
     useEffect(() => {
@@ -93,7 +113,7 @@ const City = ({ coordinates, convertCity }) => {
     }, [])
 
     return (
-        <div className={!loaded ? 'background city' : 'city'}>
+        <div className={!loaded ? 'loading-background city' : 'city'}>
             {loaded && <img src={sunsetImage} className="sunset-background" alt="Sunset from Unsplash" />}
             <div className="overlay"></div>
             <main>
@@ -107,7 +127,7 @@ const City = ({ coordinates, convertCity }) => {
                 <div className="center">
                     {/* <h2>{missedIt ? <p>You missed it :( Come back tomorrow</p> : null}</h2> */}
                     {/* <h1 className={`${missedIt ? 'missed-it' : ''}`}>{countdown}</h1> */}
-                    <h1>{countdown}</h1>
+                    <h1>{doubleDigits()}</h1>
                     <h2>Until sunset in <span> {city} </span></h2>
 
                 </div>

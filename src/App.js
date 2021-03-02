@@ -8,6 +8,7 @@ import City from './components/City';
 
 // libs
 import axios from "axios";
+import { AnimatePresence } from 'framer-motion';
 
 
 function App() {
@@ -38,13 +39,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Route exact path="/">
-        <Home convertCity={convertCity} />
-      </Route>
-      <Route path="/city/:city">
-        <City coordinates={coordinates} convertCity={convertCity} />
-      </Route>
-
+      <AnimatePresence initial={false} exitBeforeEnter>
+        <Route exact path="/">
+          <Home convertCity={convertCity} />
+        </Route>
+        <Route path="/city/:city">
+          <City coordinates={coordinates} convertCity={convertCity} />
+        </Route>
+      </AnimatePresence>
     </BrowserRouter>
   );
 }

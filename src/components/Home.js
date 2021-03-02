@@ -1,6 +1,10 @@
 import { useHistory } from "react-router-dom";
 import { useState } from 'react';
 
+import { motion } from 'framer-motion';
+
+const transition = { ease: "easeOut", duration: 2 };
+
 const Home = ({ convertCity }) => {
     const history = useHistory();
 
@@ -15,8 +19,9 @@ const Home = ({ convertCity }) => {
         e.preventDefault();
         convertCity(city);
 
-        // take city from state and go to city page
-        history.push(`/city/${city}`);
+        setTimeout(() => {
+            history.push(`/city/${city}`);
+        }, 1000)
     }
 
     return (
@@ -28,7 +33,10 @@ const Home = ({ convertCity }) => {
                 <span></span>
                 <span></span>
                 <div className="search">
-                    <h1>Sunset Today</h1>
+                    <motion.h1
+                        exit={{ opacity: 0 }}
+                        transition={transition}
+                    >Sunset Today</motion.h1>
                     <h2>We all love sunsets, so grab a friend, a camera and don't miss the moment! Find out how much time is left until the sunset today at your location</h2>
                     <form onSubmit={handleSubmit}>
                         <input type="text" placeholder="Type in city and press enter" value={city} onChange={handleChange} />

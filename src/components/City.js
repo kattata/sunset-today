@@ -2,8 +2,6 @@ import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from 'react';
 import axios from "axios";
 
-
-import sunset from "../assets/sunset.jpg";
 import arrow from "../assets/left-arrow.svg";
 
 const City = ({ coordinates, convertCity }) => {
@@ -21,6 +19,8 @@ const City = ({ coordinates, convertCity }) => {
     const [sunsetData, setSunsetData] = useState(null);
     const [sunsetImage, setSunsetImage] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    const [sunsetTime, setSunsetTime] = useState(null);
+
 
     const handleClick = () => {
         history.push("/");
@@ -51,9 +51,10 @@ const City = ({ coordinates, convertCity }) => {
         if (initialMount.current) {
             initialMount.current = false;
         } else {
-            getSunsetData()
+            getSunsetData();
         }
     }, [getSunsetData]);
+
 
     // COUNTDOWN
     useEffect(() => {
@@ -70,9 +71,7 @@ const City = ({ coordinates, convertCity }) => {
             let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            // countdown
-            // const h = hours < 10 ? ('0' + hours) : hours;
-            // let time = `${h}:${minutes}:${seconds}`;
+
             setCountdown({
                 hours,
                 minutes,
@@ -106,7 +105,6 @@ const City = ({ coordinates, convertCity }) => {
         axios.get(url)
             .then(response => {
                 const image = response.data.urls.regular;
-                console.log(image);
                 setSunsetImage(image);
                 setLoaded(true);
             })

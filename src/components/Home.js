@@ -17,11 +17,10 @@ const Home = ({ convertCity }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        convertCity(city);
-
-        setTimeout(() => {
+        if (city) {
+            convertCity(city);
             history.push(`/city/${city}`);
-        }, 1000)
+        }
     }
 
     return (
@@ -34,7 +33,9 @@ const Home = ({ convertCity }) => {
                 <span></span>
                 <div className="search">
                     <motion.h1
+                        key="h1"
                         exit={{ opacity: 0 }}
+                        // whileHover={{ opacity: 0 }}
                         transition={transition}
                     >Sunset Today</motion.h1>
                     <h2>We all love sunsets, so grab a friend, a camera and don't miss the moment! Find out how much time is left until the sunset today at your location</h2>

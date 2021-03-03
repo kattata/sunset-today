@@ -1,5 +1,5 @@
 // react
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useState } from 'react';
 
 // components
@@ -39,14 +39,16 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AnimatePresence initial={false} exitBeforeEnter>
-        <Route exact path="/">
-          <Home convertCity={convertCity} />
-        </Route>
-        <Route path="/city/:city">
-          <City coordinates={coordinates} convertCity={convertCity} />
-        </Route>
-      </AnimatePresence>
+      <Route
+        render={({ location }) => (
+          <AnimatePresence exitBeforeEnter initial={false}>
+            <Switch location={location} key={location.pathname}>
+              <Route exact path="/" render={() => <Home convertCity={convertCity} />} />
+              <Route exact path="/city/:city" render={() => <City coordinates={coordinates} convertCity={convertCity} />} />
+            </Switch>
+          </AnimatePresence>
+        )}
+      />
     </BrowserRouter>
   );
 }

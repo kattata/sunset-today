@@ -1,10 +1,13 @@
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from 'react';
+
 import axios from "axios";
+
+import { motion } from 'framer-motion';
 
 import arrow from "../assets/left-arrow.svg";
 
-const City = ({ coordinates, convertCity }) => {
+const City = ({ coordinates, convertCity, transition }) => {
 
     const history = useHistory();
     const { city } = useParams();
@@ -28,22 +31,20 @@ const City = ({ coordinates, convertCity }) => {
 
     useEffect(() => {
         convertCity(city);
-    }, [city])
+    }, [])
 
     // GET SUNSET DATA
     const initialMount = useRef(true);
 
     const getSunsetData = useCallback(
-        async () => {
-
-            try {
-                const response = await axios.get(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.long}&formatted=0`)
-                setSunsetData(response.data.results.sunset);
-                // console.log(sunsetData);
-            } catch (error) {
-                console.log(error);
-            }
-
+        () => {
+            axios.get(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.long}&formatted=0`)
+                .then(res => {
+                    setSunsetData(res.data.results.sunset);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         }, [coordinates.lat, coordinates.long]
     );
 
@@ -101,7 +102,7 @@ const City = ({ coordinates, convertCity }) => {
     // BACKGROUND IMAGE
     useEffect(() => {
         const accessKey = 'IVoOzXojUU_edYCTpfIKbSccTms-_l51psRtzE3UxAU';
-        const url = `https://api.unsplash.com/photos/random?client_id=${accessKey}&query=sunset%20${city}`;
+        const url = `https://api.unsplash.com/photos/random?client_id=${accessKey}&query=sunset`;
         axios.get(url)
             .then(response => {
                 const image = response.data.urls.regular;
@@ -112,7 +113,9 @@ const City = ({ coordinates, convertCity }) => {
 
     return (
         <div className={!loaded ? 'loading-background city' : 'city'}>
-            {loaded && <img src={sunsetImage} className="sunset-background" alt="Sunset from Unsplash" />}
+            <motion.span className="circle"
+                animate={{ height: 0, width: 0, opacity: 1 }} transition={transition, { duration: 1.2 }}></motion.span>
+            {loaded && <motion.img animate={{ opacity: 1 }} initial={{ opacity: 0 }} transition={transition, { duration: 1.5 }} src={sunsetImage} className="sunset-background" alt="Sunset from Unsplash" />}
             <div className="overlay"></div>
             <main>
                 <div className="top">

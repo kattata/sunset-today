@@ -13,6 +13,8 @@ import { AnimatePresence } from 'framer-motion';
 
 function App() {
 
+  const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
+
   const [coordinates, setCoordinates] = useState({
     lat: "",
     long: "",
@@ -25,7 +27,7 @@ function App() {
 
     axios.get(url)
       .then(res => {
-        // console.log(res);
+        console.log(res);
         setCoordinates({
           lat: res.data.data[0].latitude,
           long: res.data.data[0].longitude,
@@ -43,8 +45,8 @@ function App() {
         render={({ location }) => (
           <AnimatePresence exitBeforeEnter initial={false}>
             <Switch location={location} key={location.pathname}>
-              <Route exact path="/" render={() => <Home convertCity={convertCity} />} />
-              <Route exact path="/city/:city" render={() => <City coordinates={coordinates} convertCity={convertCity} />} />
+              <Route exact path="/" render={() => <Home convertCity={convertCity} transition={transition} />} />
+              <Route exact path="/city/:city" render={() => <City coordinates={coordinates} convertCity={convertCity} transition={transition} />} />
             </Switch>
           </AnimatePresence>
         )}
